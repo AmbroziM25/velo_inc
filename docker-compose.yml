@@ -1,0 +1,56 @@
+# Fully self-host velo.inc on this box: web app (Next.js) + HTTPS (Caddy)
+# + authoritative DNS (CoreDNS).
+#
+#   docker compose up -d --build
+#
+# Requirements:
+#   - velo.inc registered, with its nameservers set to ns1.velo.inc + ns2.velo.inc
+#     and glue records ns1/ns2.velo.inc -> this host's public IP (84.1.20.159).
+#   - Router forwards inbound 53 (udp+tcp), 80, and 443 to this host (192.168.0.28).
+#   - Edit dns/db.velo.inc if your public IP changes (and update glue at the registrar).
+# Caddy then obtains and renews TLS certs automatically once velo.inc resolves here.
+#
+# Plain local test without a domain:
+#   docker build -t velo-inc . && docker run --rm -p 3000:3000 velo-inc
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: https://velo.inc
+    restart: unless-stopped
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  dns:
+    image: coredns/coredns:1.11.3
+    restart: unless-stopped
+    command: ["-conf", "/etc/coredns/Corefile"]
+    # Bind to the LAN IP, not 0.0.0.0, to avoid colliding with the host's
+    # systemd-resolved stub listener (127.0.0.53:53). The router forwards
+    # inbound :53 here. If this host's LAN IP changes, update it below
+    # (set a DHCP reservation on the router so it stays 192.168.0.28).
+    ports:
+      - "192.168.0.28:53:53/udp"
+      - "192.168.0.28:53:53/tcp"
+    volumes:
+      - ./dns/Corefile:/etc/coredns/Corefile:ro
+      - ./dns/db.velo.inc:/etc/coredns/db.velo.inc:ro
+
+volumes:
+  caddy_data:
+  caddy_config:

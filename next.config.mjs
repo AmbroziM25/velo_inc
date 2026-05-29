@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  // Build a minimal, self-contained server in .next/standalone for self-hosting.
+  output: "standalone",
   reactCompiler: true,
 };
 
