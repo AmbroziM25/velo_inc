@@ -1,7 +1,0 @@
-# Authoritative DNS for velo.inc, self-hosted via CoreDNS.
-# Answers ONLY for velo.inc — deliberately not a recursive/open resolver.
-velo.inc {
-    file /etc/coredns/db.velo.inc
-    errors
-    log
-}

@@ -33,8 +33,9 @@ export const LINKS = [
   },
 ];
 
-// Public origin the site is served from. Override at build time with
-// NEXT_PUBLIC_SITE_URL (e.g. for staging); defaults to the production domain.
+// Public origin the site is served from. Set at build time via
+// NEXT_PUBLIC_SITE_URL (docker compose passes it from .env); falls back to
+// localhost for plain `npm run dev`.
 export const SITE = {
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://velo.inc",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
 };

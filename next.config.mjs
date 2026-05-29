@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Build a minimal, self-contained server in .next/standalone for self-hosting.
-  output: "standalone",
+  // Emit a fully static site into ./out for GitHub Pages (no Node server).
+  output: "export",
+  // Served at the apex domain root, so no basePath. next/image isn't used,
+  // but mark images unoptimized so the default loader is never required.
+  images: { unoptimized: true },
   reactCompiler: true,
 };
 
