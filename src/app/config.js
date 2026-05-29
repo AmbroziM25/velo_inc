@@ -10,27 +10,28 @@ export const LINKS = [
   {
     key: "instagram",
     name: "Instagram",
-    
     href: "https://www.instagram.com/yngstr_mrk/",
   },
   {
     key: "snapchat",
     name: "Snapchat",
-   
     href: "https://snapchat.com/t/9OgJV0po",
   },
   {
     key: "tiktok",
     name: "TikTok",
-    
     href: "https://www.tiktok.com/@velo8345?_r=1&_t=ZN-96mEmWSFWYI",
   },
   {
-    key: "Steam",
+    key: "steam",
     name: "Steam",
-    
     href: "https://steamcommunity.com/profiles/76561199827686924/",
   },
+  {
+    key: "github",
+    name: "Github",
+    href: "https://github.com/AmbroziM25"
+  }
 ];
 
 // Public origin the site is served from. Set at build time via

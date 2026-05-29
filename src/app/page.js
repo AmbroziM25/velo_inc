@@ -1,15 +1,16 @@
 import Background from "./Background";
 import Intro from "./Intro";
 import { PROFILE, LINKS } from "./config";
-import { Instagram, Snapchat, TikTok, Steam, ArrowUpRight } from "./icons";
+import { Instagram, Snapchat, TikTok, Steam, Github, ArrowUpRight } from "./icons";
 
-const ICONS = { instagram: Instagram, snapchat: Snapchat, tiktok: TikTok, Steam };
+const ICONS = { instagram: Instagram, snapchat: Snapchat, tiktok: TikTok, steam: Steam, github: Github };
 
 const GLOW = {
   instagram: "radial-gradient(circle, rgba(225,48,108,0.55), transparent 70%)",
-  snapchat: "radial-gradient(circle, rgba(255,252,0,0.45), transparent 70%)",
-  tiktok: "radial-gradient(circle, rgba(254,44,85,0.55), transparent 70%)",
-  x: "radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%)",
+  snapchat:  "radial-gradient(circle, rgba(255,252,0,0.45), transparent 70%)",
+  tiktok:   "radial-gradient(circle, rgba(254,44,85,0.55), transparent 70%)",
+  steam:    "radial-gradient(circle, rgba(23,107,179,0.55), transparent 70%)",
+  github:   "radial-gradient(circle, rgba(110,84,148,0.55), transparent 70%)",
 };
 
 export default function Home() {
