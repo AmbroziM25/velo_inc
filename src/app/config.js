@@ -10,26 +10,26 @@ export const LINKS = [
   {
     key: "instagram",
     name: "Instagram",
-    handle: "@yourhandle",
-    href: "https://instagram.com/yourhandle",
+    
+    href: "https://www.instagram.com/yngstr_mrk/",
   },
   {
     key: "snapchat",
     name: "Snapchat",
-    handle: "@yourhandle",
-    href: "https://snapchat.com/add/yourhandle",
+   
+    href: "https://snapchat.com/t/9OgJV0po",
   },
   {
     key: "tiktok",
     name: "TikTok",
-    handle: "@yourhandle",
-    href: "https://tiktok.com/@yourhandle",
+    
+    href: "https://www.tiktok.com/@velo8345?_r=1&_t=ZN-96mEmWSFWYI",
   },
   {
-    key: "x",
-    name: "X",
-    handle: "@yourhandle",
-    href: "https://x.com/yourhandle",
+    key: "Steam",
+    name: "Steam",
+    
+    href: "https://steamcommunity.com/profiles/76561199827686924/",
   },
 ];
 

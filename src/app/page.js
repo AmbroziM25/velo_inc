@@ -1,9 +1,9 @@
 import Background from "./Background";
 import Intro from "./Intro";
 import { PROFILE, LINKS } from "./config";
-import { Instagram, Snapchat, TikTok, X, ArrowUpRight } from "./icons";
+import { Instagram, Snapchat, TikTok, Steam, ArrowUpRight } from "./icons";
 
-const ICONS = { instagram: Instagram, snapchat: Snapchat, tiktok: TikTok, x: X };
+const ICONS = { instagram: Instagram, snapchat: Snapchat, tiktok: TikTok, Steam };
 
 const GLOW = {
   instagram: "radial-gradient(circle, rgba(225,48,108,0.55), transparent 70%)",
