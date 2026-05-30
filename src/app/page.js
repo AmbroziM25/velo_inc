@@ -43,21 +43,13 @@ export default function Home() {
 
       <section className="relative z-10 mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center px-6 py-20">
         <header className="rise flex flex-col items-center text-center">
-          <div className="float relative mb-6">
-            <span
-              aria-hidden="true"
-              className="absolute -inset-4 rounded-full bg-[radial-gradient(circle,rgba(138,148,255,0.35),transparent_70%)] blur-xl"
-            />
-            <span aria-hidden="true" className="avatar-ring" />
-            <div className="glass relative grid h-24 w-24 place-items-center rounded-full text-2xl font-semibold tracking-[0.08em] text-white">
-              {PROFILE.initials}
-            </div>
-          </div>
           <h1 className="text-shimmer text-[1.7rem] font-semibold leading-tight tracking-tight">{PROFILE.name}</h1>
-          <p className="mt-1.5 flex items-center gap-2 text-sm font-medium text-white/45">
-            <span aria-hidden="true" className="pulse-dot" />
-            {PROFILE.handle}
-          </p>
+          {PROFILE.handle ? (
+            <p className="mt-1.5 flex items-center gap-2 text-sm font-medium text-white/45">
+              <span aria-hidden="true" className="pulse-dot" />
+              {PROFILE.handle}
+            </p>
+          ) : null}
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-pretty text-white/65">
             {PROFILE.bio}
           </p>

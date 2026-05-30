@@ -1,8 +1,7 @@
 // Edit this file to make the page yours: change your name, handle, and links.
 export const PROFILE = {
-  name: "Your Name",
-  handle: "@yourhandle",
-  initials: "YN",
+  name: "Velo",
+  initials: "VL",
   bio: "all my links in one place — tap in.",
 };
 
