@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const HOLD_MS = 2100;
-const LEAVE_MS = 650;
+const HOLD_MS = 2000;
+const LEAVE_MS = 700;
 
 export default function Intro({ initials = "YN" }) {
   const [phase, setPhase] = useState("intro");
@@ -54,19 +54,12 @@ export default function Intro({ initials = "YN" }) {
       onClick={() => leaveRef.current()}
       role="presentation"
     >
-      <div className="intro-stage">
-        <div className="intro-orb-wrap">
-          <span className="intro-glow" aria-hidden="true" />
-          <div className="intro-orb" aria-hidden="true">
-            <span className="intro-ring intro-ring-1" />
-            <span className="intro-ring intro-ring-2" />
-            <span className="intro-ring intro-ring-3" />
-            <span className="intro-ring intro-ring-4" />
-          </div>
-          <div className="intro-core" aria-hidden="true">
-            {initials}
-          </div>
+      <div className="intro-content">
+        <span className="intro-glow" aria-hidden="true" />
+        <div className="intro-mark" aria-hidden="true">
+          {initials}
         </div>
+        <span className="intro-line" aria-hidden="true" />
       </div>
       <button
         type="button"

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #08080a;
+  --background: #070709;
   --foreground: #ededed;
   color-scheme: dark;
 }
@@ -26,68 +26,218 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.16);
 }
 
-/* Layered near-black backdrop with soft white spotlights */
+/* ===== Backdrop ===== */
+/* Layered near-black field with cool spotlights for depth */
 .aurora {
   background:
-    radial-gradient(60rem 32rem at 50% -12%, rgba(255, 255, 255, 0.08), transparent 60%),
-    radial-gradient(40rem 40rem at 18% 22%, rgba(255, 255, 255, 0.05), transparent 62%),
-    radial-gradient(34rem 34rem at 82% 78%, rgba(170, 170, 185, 0.05), transparent 62%),
+    radial-gradient(55rem 30rem at 50% -14%, rgba(138, 148, 255, 0.10), transparent 60%),
+    radial-gradient(38rem 38rem at 14% 18%, rgba(255, 255, 255, 0.045), transparent 60%),
+    radial-gradient(32rem 32rem at 86% 84%, rgba(150, 138, 205, 0.07), transparent 62%),
     var(--background);
 }
 
-/* Slow-drifting blurred bubbles */
-@keyframes drift {
+/* Soft vignette to focus the centre */
+.aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60rem 60rem at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.45));
+}
+
+/* Lava-lamp blobs that rise, fall, squish and melt together */
+.lava {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+}
+
+@keyframes lavaRise {
   0% {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate(0, 18vh) scale(1, 1);
+  }
+  25% {
+    transform: translate(2vw, 6vh) scale(1.1, 0.9);
   }
   50% {
-    transform: translate3d(var(--dx, 2rem), var(--dy, -2rem), 0) scale(1.1);
+    transform: translate(-1.5vw, -9vh) scale(0.92, 1.18);
+  }
+  75% {
+    transform: translate(1.5vw, 5vh) scale(1.06, 0.95);
   }
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate(0, -18vh) scale(1, 1);
   }
 }
 
-.bubble {
+.blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(44px);
-  opacity: 0.6;
-  animation: drift var(--dur, 22s) ease-in-out infinite;
+  filter: blur(8px);
+  animation-name: lavaRise;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
   will-change: transform;
 }
 
-/* Frosted glass surface */
+/* ===== Frosted glass ===== */
 .glass {
-  background: rgba(255, 255, 255, 0.045);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Staggered entrance */
+/* ===== Staggered entrance ===== */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
 .rise {
-  animation: rise 0.7s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  animation: rise 0.8s cubic-bezier(0.22, 0.7, 0.2, 1) both;
 }
 
-/* ===== 3D intro overlay ===== */
+/* ===== Living accents ===== */
+
+/* Gentle vertical float (avatar) */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Rotating colour ring around the avatar */
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(138, 148, 255, 0.65),
+    rgba(255, 255, 255, 0.05),
+    rgba(225, 48, 108, 0.55),
+    rgba(255, 255, 255, 0.05),
+    rgba(56, 135, 200, 0.55),
+    rgba(255, 255, 255, 0.05)
+  );
+  animation: spinSlow 6s linear infinite;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+}
+
+/* Shimmering gradient text (name) */
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(110deg, #ffffff 35%, rgba(150, 160, 255, 0.95) 50%, #ffffff 65%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+/* Live pulse dot */
+@keyframes pulseDot {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: #5eead4;
+  box-shadow: 0 0 8px rgba(94, 234, 212, 0.8);
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #5eead4;
+  animation: pulseDot 2s ease-out infinite;
+}
+
+/* Animated glowing per-brand border on link cards (hover) */
+@keyframes borderShift {
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.link-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.link-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(110deg, transparent, var(--accent, rgba(255, 255, 255, 0.5)), transparent);
+  background-size: 200% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borderShift 3s linear infinite;
+}
+
+.link-card:hover::before {
+  opacity: 1;
+}
+
+/* ===== Intro overlay — monogram reveal ===== */
 .intro-overlay {
   position: fixed;
   inset: 0;
@@ -95,109 +245,62 @@ body {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(42rem 30rem at 50% 44%, rgba(255, 255, 255, 0.07), transparent 60%),
+    radial-gradient(40rem 28rem at 50% 46%, rgba(138, 148, 255, 0.09), transparent 60%),
     var(--background);
-  transition: opacity 0.65s ease, transform 0.65s ease, filter 0.65s ease;
-  will-change: opacity, transform;
+  transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
+  will-change: opacity, transform, filter;
 }
 
 .intro-overlay.leaving {
   opacity: 0;
-  transform: scale(1.1);
-  filter: blur(6px);
+  transform: translateY(-10px) scale(1.02);
+  filter: blur(8px);
   pointer-events: none;
 }
 
-.intro-stage {
-  perspective: 900px;
-  perspective-origin: 50% 44%;
-}
-
-.intro-orb-wrap {
+.intro-content {
   position: relative;
-  width: 220px;
-  height: 220px;
-  animation: orbAssemble 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .intro-glow {
   position: absolute;
-  inset: -36px;
+  top: 34%;
+  left: 50%;
+  width: 17rem;
+  height: 17rem;
+  transform: translate(-50%, -50%);
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.14), transparent 65%);
-  filter: blur(22px);
-  animation: coreIn 1s both;
+  background: radial-gradient(circle, rgba(150, 160, 255, 0.20), rgba(255, 255, 255, 0.05) 42%, transparent 70%);
+  filter: blur(32px);
+  animation: glowPulse 2.6s ease-in-out infinite;
 }
 
-.intro-orb {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  animation: orbSpin 8s linear infinite;
-}
-
-.intro-ring {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow:
-    0 0 18px rgba(255, 255, 255, 0.08),
-    inset 0 0 18px rgba(255, 255, 255, 0.05);
-  animation: ringIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.intro-ring::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 9999px;
-  border: 1px solid transparent;
-  border-top-color: rgba(255, 255, 255, 0.6);
-  border-right-color: rgba(255, 255, 255, 0.25);
-}
-
-.intro-ring-1 {
-  transform: rotateY(0deg) rotateX(8deg);
-}
-.intro-ring-2 {
-  inset: 14px;
-  transform: rotateY(60deg) rotateX(8deg);
-  animation-delay: 0.08s;
-}
-.intro-ring-3 {
-  inset: 28px;
-  transform: rotateY(120deg) rotateX(8deg);
-  animation-delay: 0.16s;
-}
-.intro-ring-4 {
-  inset: 10px;
-  transform: rotateX(74deg);
-  animation-delay: 0.24s;
-}
-
-.intro-core {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  display: grid;
-  width: 108px;
-  height: 108px;
-  place-items: center;
-  border-radius: 9999px;
-  font-size: 1.6rem;
+.intro-mark {
+  position: relative;
+  font-size: clamp(3.4rem, 16vw, 5.2rem);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  animation: coreIn 0.9s 0.15s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  padding-left: 0.12em;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.55) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: markIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.intro-line {
+  margin-top: 1.25rem;
+  height: 1px;
+  width: 7rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  transform-origin: center;
+  animation: lineIn 1s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .intro-skip {
@@ -210,11 +313,11 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.03);
   font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
   transition: color 0.2s, border-color 0.2s, background 0.2s;
-  animation: coreIn 0.6s 0.9s both;
+  animation: fadeIn 0.6s 1s both;
 }
 
 .intro-skip:hover {
@@ -223,46 +326,50 @@ body {
   background: rgba(255, 255, 255, 0.06);
 }
 
-@keyframes orbAssemble {
+@keyframes markIn {
   0% {
     opacity: 0;
-    transform: scale(0.4);
-  }
-  60% {
-    opacity: 1;
+    filter: blur(16px);
+    transform: scale(0.96);
+    letter-spacing: 0.34em;
   }
   100% {
     opacity: 1;
+    filter: blur(0);
     transform: scale(1);
+    letter-spacing: 0.12em;
   }
 }
 
-@keyframes orbSpin {
-  from {
-    transform: rotateY(0deg) rotateX(10deg);
-  }
-  to {
-    transform: rotateY(360deg) rotateX(10deg);
-  }
-}
-
-@keyframes ringIn {
+@keyframes lineIn {
   from {
     opacity: 0;
+    transform: scaleX(0);
   }
   to {
     opacity: 1;
+    transform: scaleX(1);
   }
 }
 
-@keyframes coreIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
-  }
+@keyframes glowPulse {
+  0%,
   100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
     opacity: 1;
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -270,14 +377,21 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .bubble,
+  .blob,
   .rise,
-  .intro-orb-wrap,
+  .float,
+  .avatar-ring,
+  .text-shimmer,
+  .pulse-dot::after,
+  .link-card::before,
   .intro-glow,
-  .intro-orb,
-  .intro-ring,
-  .intro-core,
+  .intro-mark,
+  .intro-line,
   .intro-skip {
     animation: none !important;
+  }
+  .text-shimmer {
+    -webkit-text-fill-color: #fff;
+    color: #fff;
   }
 }
