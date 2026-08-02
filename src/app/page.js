@@ -15,7 +15,6 @@ const GLOW = {
 
 const ACCENT = {
   instagram: "rgba(225,48,108,0.85)",
-  snapchat:  "rgba(255,237,40,0.85)",
   tiktok:   "rgba(254,44,85,0.85)",
   steam:    "rgba(72,150,210,0.85)",
   github:   "rgba(168,148,220,0.85)",

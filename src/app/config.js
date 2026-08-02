@@ -11,11 +11,7 @@ export const LINKS = [
     name: "Instagram",
     href: "https://www.instagram.com/yngstr_mrk/",
   },
-  {
-    key: "snapchat",
-    name: "Snapchat",
-    href: "https://snapchat.com/t/9OgJV0po",
-  },
+ 
   {
     key: "tiktok",
     name: "TikTok",
